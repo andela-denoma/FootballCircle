@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/Football');
+mongoose.connect('mongodb://debbie131:osayande131@@ds031631.mongolab.com:31631/football
+');
 
 // var db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error:'));
