@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 
 
 var TopicSchema = new  Schema({
-  headline: {
+  headline: [{
     type: String,
     required: 'Please enter Topic name',
     trim: true
-  },
+  }],
 
   // picture: {
   //   type: String

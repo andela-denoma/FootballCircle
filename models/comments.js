@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 
 
 var CommentSchema = new Schema({
-  message:{
+  message:[{
     type: String,
     trim: true
-  }
+  }]
   // like: [{
   //   type: String
   // }],

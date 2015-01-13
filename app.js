@@ -10,6 +10,13 @@ app.use('/forums', forum);
 app.use('/forums/:forums_id/topics', topic);
 app.use('/forums/:forums_id/topics/:topics_id/comments', comment);
 
- app.listen(port); //function(){
-  // console.log('server started');
-// });
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT');
+  };
+
+  app.use(allowCrossDomain);
+  
+ app.listen(port, function(){
+  console.log('server started');
+});
