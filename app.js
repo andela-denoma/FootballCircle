@@ -17,8 +17,6 @@ app.use('/forums', forum);
 app.use('/forums/:forums_id/topics', topic);
 app.use('/forums/:forums_id/topics/:topics_id/comments', comment);
 
-
-
 app.listen(app.get('port'), function(){
   console.log('server started');
 });
