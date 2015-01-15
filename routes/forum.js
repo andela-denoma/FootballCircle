@@ -62,7 +62,9 @@ router.route('/')
       });
       });
     })
+
     .delete(function(req, res){
+      console.log(req);
       Forum.findById(req.params.forums_id, function(err, single_forum){
         single_forum.remove(function(err){
           if(err){
