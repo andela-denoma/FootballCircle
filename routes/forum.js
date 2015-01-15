@@ -45,9 +45,9 @@ router.route('/')
 
     .put(function(req, res){
       Forum.findById(req.params.forums_id, function(err, single_forum){
-        single_forum.name = req.body.name;
-        single_forum.slogan = req.body.slogan;
-        single_forum.created = req.body.created;
+        single_forum.name = req.body.name || single_forum.name;
+        single_forum.slogan = req.body.slogan ||  single_forum.slogan;
+        single_forum.created = req.body.created ||  single_forum.created;
 
       single_forum.save(function(err){
         if(err){
