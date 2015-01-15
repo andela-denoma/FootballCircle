@@ -32,10 +32,10 @@ router.route('/')
     });
   });
 
-  router.route('/:forums_id')
+  router.route('/:forum_id')
 
     .get(function(req, res){
-      Forum.findById(req.params.forums_id, function(err, single_forum){
+      Forum.findById(req.params.forum_id, function(err, single_forum){
         if(err){
           res.send(err);
         }
@@ -44,7 +44,7 @@ router.route('/')
     })
 
     .put(function(req, res){
-      Forum.findById(req.params.forums_id, function(err, single_forum){
+      Forum.findById(req.params.forum_id, function(err, single_forum){
         single_forum.name = req.body.name;
         single_forum.slogan = req.body.slogan;
         single_forum.created = req.body.created;
@@ -60,7 +60,7 @@ router.route('/')
 
     .delete(function(req, res){
       console.log(req);
-      Forum.findById(req.params.forums_id, function(err, single_forum){
+      Forum.findById(req.params.forum_id, function(err, single_forum){
         single_forum.remove(function(err){
           if(err){
             res.send(err);
