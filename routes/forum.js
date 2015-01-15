@@ -7,11 +7,6 @@ router.use(bodyParser.json());
 
 var Forum = require('../models/forums');
 
-// router.route('/')
-//   .get(function(req, res){
-//     res.redirect('/forums');
-//   });
-
 router.route('/')
   .post(function(req, res){
     console.log(req.body);
