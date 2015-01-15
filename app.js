@@ -13,7 +13,7 @@ var allowCrossDomain = function(req, res, next) {
 
 app.set('port', (process.env.PORT || 3000));
 app.use(allowCrossDomain);
-app.use('/forums', forum);
+app.use('/', forum);
 app.use('/forums/:forum_id/topics', topic);
 app.use('/forums/:forum_id/topics/:topics_id/comments', comment);
 

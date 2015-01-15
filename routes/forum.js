@@ -7,61 +7,61 @@ router.use(bodyParser.json());
 
 var Forum = require('../models/forums');
 
-router.route('/')
+router.route('/forums')
+.get(function(req, res){
+    Forum.find(function(err, forums){
+      if(err){
+        res.send(err);
+      }
+      res.json(forums);
+    });
+  })
+
   .post(function(req, res){
     console.log(req.body);
-    var forum = new Forum ({
-      name: req.body.name,
-      slogan: req.body.slogan,
-      created: req.body.created
-    });
+    var forum = new Forum (req.body);
     forum.save(function(err){
       if(err){
         res.send(err);
       }
       res.json(forum);
     });
-  })
-
-  .get(function(req, res){
-    Forum.find(function(err, all_forum){
-      if(err){
-        res.send(err);
-      }
-      res.json(all_forum);
-    });
   });
 
-  router.route('/:id')
+  
+  router.route('/forums/:id')
+   .put(function(req, res){
+      Forum.findOne({_id: req.params.id}, function(err, forum){
+        if(err){
+          res.send(err);
+        }
+        for (prop in req.body) {
+        forum[prop] = req.body[prop];
+        }
+      forum.save(function(err) {
+        if (err) {
+          return res.send(err);
+        }
+      res.json({ message: 'Forum updated!' });
+      });
+    });
+  })
 
     .get(function(req, res){
-      Forum.findById(req.params.forum_id, function(err, single_forum){
-        if(err){
-          res.send(err);
-        }
-        res.json(single_forum);
-      });
-    })
-
-    .put(function(req, res){
-      Forum.findById(req.params.forum_id, function(err, single_forum){
-        single_forum.name = req.body.name;
-        single_forum.slogan = req.body.slogan;
-        single_forum.created = req.body.created;
-
-      single_forum.save(function(err){
-        if(err){
-          res.send(err);
-        }
-        res.json(single_forum);
-      });
-      });
-    })
+     Forum.findOne({ _id: req.params.id}, function(err, forum) {
+    if (err) {
+      return res.send(err);
+    }
+ 
+    res.json(forum);
+    });
+  })
+   
 
     .delete(function(req, res){
       console.log(req);
-      Forum.findById(req.params.forum_id, function(err, single_forum){
-        single_forum.remove(function(err){
+      Forum.findOne({_id: req.params.id}, function(err, forum){
+        forum.remove(function(err){
           if(err){
             res.send(err);
           }
