@@ -32,7 +32,7 @@ router.route('/')
     });
   });
 
-  router.route('/:forum_id')
+  router.route('/:id')
 
     .get(function(req, res){
       Forum.findById(req.params.forum_id, function(err, single_forum){
