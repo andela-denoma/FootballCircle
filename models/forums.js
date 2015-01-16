@@ -24,7 +24,12 @@ var ForumSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
-  }
+  },
+  topics: [{
+    type: Schema.Types.ObjectId,
+    ref:'Topic'
+  }]
+  
 });
 
 module.exports = mongoose.model('Forum', ForumSchema);

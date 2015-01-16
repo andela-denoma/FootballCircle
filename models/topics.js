@@ -13,6 +13,7 @@ var TopicSchema = new  Schema({
     type: String,
     trim: true
   }
+  forum: { type: Schema.Types.ObjectId, ref: 'Forum' }
 });
 
 module.exports = mongoose.model('Topic', TopicSchema);
