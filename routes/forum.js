@@ -29,9 +29,9 @@ router.route('/forums')
   });
 
   
-  router.route('/forums/:forumid')
+  router.route('/forums/:id')
    .put(function(req, res){
-      Forum.findOne({forum_id: req.params.forumid}, function(err, forum){
+      Forum.findOne({_id: req.params.id}, function(err, forum){
         if(err){
           res.send(err);
         }
@@ -48,7 +48,7 @@ router.route('/forums')
   })
 
     .get(function(req, res){
-     Forum.findOne({ forum_id: req.params.forumid}, function(err, forum) {
+     Forum.findOne({ _id: req.params.id}, function(err, forum) {
     if (err) {
       return res.send(err);
     }
@@ -60,7 +60,7 @@ router.route('/forums')
 
     .delete(function(req, res){
       console.log(req);
-      Forum.findOne({forum_id: req.params.forumid}, function(err, forum){
+      Forum.findOne({_id: req.params.id}, function(err, forum){
         forum.remove(function(err){
           if(err){
             res.send(err);

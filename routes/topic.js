@@ -10,7 +10,7 @@ var Forum = require('../models/forums');
 
 router.route('/forums/:forumid/topics')
 .get(function(req, res){
-  Forum.findOne({forum_id: req.params.forumid}, function(err, forum){
+  Forum.findOne({_id: req.params.id}, function(err, forum){
     Topic.find(function(err, topics){
       if(err){
         res.send(err);
@@ -32,9 +32,9 @@ router.route('/forums/:forumid/topics')
   });
 
   
-  router.route('/forums/:forumid/topics/:id')
+  router.route('/forums/:id/topics/:id')
    .put(function(req, res){
-      Topic.findOne({forum_id: req.params.forumid}, function(err, topic){
+      Topic.findOne({_id: req.params.id}, function(err, topic){
         if(err){
           res.send(err);
         }
