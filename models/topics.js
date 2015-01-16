@@ -12,11 +12,7 @@ var TopicSchema = new  Schema({
   body: {
     type: String,
     trim: true
-  },
-  comment: [{
-    type: Schema.ObjectId,
-    ref: 'Comment'
-  }]
+  }
 });
 
 module.exports = mongoose.model('Topic', TopicSchema);
