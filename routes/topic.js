@@ -7,7 +7,7 @@ router.use(bodyParser.json());
 
 var Topic = require('../models/topics');
 
-router.route('/topics')
+router.route('/forums/:id/topics')
 .get(function(req, res){
     Topic.find(function(err, topics){
       if(err){
@@ -20,7 +20,7 @@ router.route('/topics')
   .post(function(req, res){
     console.log(req.body);
     var topic = new Topic (req.body);
-    forum.save(function(err){
+    topic.save(function(err){
       if(err){
         res.send(err);
       }
@@ -29,7 +29,7 @@ router.route('/topics')
   });
 
   
-  router.route('/topics/:id')
+  router.route('/forums/:id/topics/:id')
    .put(function(req, res){
       Topic.findOne({_id: req.params.id}, function(err, topic){
         if(err){
@@ -38,7 +38,7 @@ router.route('/topics')
         for (prop in req.body) {
         topic[prop] = req.body[prop];
         }
-      forum.save(function(err) {
+      topic.save(function(err) {
         if (err) {
           return res.send(err);
         }
