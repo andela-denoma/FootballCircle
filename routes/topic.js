@@ -6,16 +6,19 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
 var Topic = require('../models/topics');
+var Forum = require('../models/forums');
 
 router.route('/forums/:id/topics')
 .get(function(req, res){
+  Forum.findOne({_id: req.params.id}, function(err, forum){
     Topic.find(function(err, topics){
       if(err){
         res.send(err);
       }
       res.json(topics);
     });
-  })
+  });
+})
 
   .post(function(req, res){
     console.log(req.body);
