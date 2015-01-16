@@ -8,9 +8,9 @@ router.use(bodyParser.json());
 var Topic = require('../models/topics');
 var Forum = require('../models/forums');
 
-router.route('/forums/:id/topics')
+router.route('/forums/:forumid/topics')
 .get(function(req, res){
-  Forum.findOne({_id: req.params.id}, function(err, forum){
+  Forum.findOne({forum_id: req.params.forumid}, function(err, forum){
     Topic.find(function(err, topics){
       if(err){
         res.send(err);
@@ -32,9 +32,9 @@ router.route('/forums/:id/topics')
   });
 
   
-  router.route('/forums/:id/topics/:id')
+  router.route('/forums/:forumid/topics/:id')
    .put(function(req, res){
-      Topic.findOne({_id: req.params.id}, function(err, topic){
+      Topic.findOne({forum_id: req.params.forumid}, function(err, topic){
         if(err){
           res.send(err);
         }
