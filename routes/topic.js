@@ -8,20 +8,17 @@ router.use(bodyParser.json());
 var Topic = require('../models/topics');
 var Forum = require('../models/forums');
 
-router.route('/forums/:forumid/topics')
-.get(function(req, res){
-  Forum.findOne({_id: req.params.id}, function(err, forum){
+router.route('/forums/:id/topics')
+  .get(function(req, res){
     Topic.find(function(err, topics){
       if(err){
         res.send(err);
       }
       res.json(topics);
     });
-  });
-})
+  })
 
   .post(function(req, res){
-    console.log(req.body);
     var topic = new Topic (req.body);
     topic.save(function(err){
       if(err){
@@ -32,15 +29,15 @@ router.route('/forums/:forumid/topics')
   });
 
   
-  router.route('/forums/:id/topics/:id')
-   .put(function(req, res){
-      Topic.findOne({_id: req.params.id}, function(err, topic){
-        if(err){
-          res.send(err);
-        }
-        for (prop in req.body) {
-        topic[prop] = req.body[prop];
-        }
+router.route('/forums/:id/topics/:id')
+  .put(function(req, res){
+    Topic.findOne({_id: req.params.id}, function(err, topic){
+      if(err){
+        res.send(err);
+      }
+      for (prop in req.body) {
+      topic[prop] = req.body[prop];
+      }
       topic.save(function(err) {
         if (err) {
           return res.send(err);
@@ -50,27 +47,24 @@ router.route('/forums/:forumid/topics')
     });
   })
 
-    .get(function(req, res){
-     Topic.findOne({ _id: req.params.id}, function(err, topic) {
-    if (err) {
-      return res.send(err);
-    }
- 
-    res.json(topic);
+  .get(function(req, res){
+    Topic.findOne({ _id: req.params.id}, function(err, topic) {
+      if (err) {
+        return res.send(err);
+      }
+      res.json(topic);
     });
   })
-   
-
-    .delete(function(req, res){
-      console.log(req);
-      Topic.findOne({_id: req.params.id}, function(err, topic){
-        topic.remove(function(err){
-          if(err){
-            res.send(err);
-          }
-          res.json('Document Deleted')
-        });
+ 
+  .delete(function(req, res){
+    Topic.findOne({_id: req.params.id}, function(err, topic){
+      topic.remove(function(err){
+        if(err){
+          res.send(err);
+        }
+        res.json('Document Deleted')
       });
     });
+  });
 
-    module.exports = router;
+module.exports = router;

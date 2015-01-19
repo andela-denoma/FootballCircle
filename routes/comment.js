@@ -7,61 +7,63 @@ router.use(bodyParser.json());
 
 var Comment = require('../models/comments');
 
-router.route('/')
-  .post(function(req, res){
-    console.log(req.body);
-    var comment = new Comment ({
-      message: req.body.message
+router.route('/forums/:id/topics/:id/comments')
+  .get(function(req, res){
+    Comment.find(function(err, comments){
+      if(err){
+        res.send(err);
+      }
+        res.json(comments);
     });
+  })
+
+  .post(function(req, res){
+    var comment = new Comment (req.body);
     comment.save(function(err){
       if(err){
         res.send(err);
       }
-      res.json(comment);
+        res.json(comment);
+    });
+  });
+ 
+router.route('/forums/:id/topics/:id/comments/:id')
+  .put(function(req, res){
+    Comment.findOne({_id: req.params.id}, function(err, comment){
+      if(err){
+        res.send(err);
+      }
+      for (prop in req.body) {
+      comment[prop] = req.body[prop];
+      }
+      comment.save(function(err) {
+        if (err) {
+          return res.send(err);
+        }
+          res.json({ message: 'Comment updated!' });
+      });
     });
   })
 
   .get(function(req, res){
-    Comment.find(function(err, all_comment){
-      if(err){
-        res.send(err);
+    Comment.findOne({ _id: req.params.id}, function(err, comment) {
+      if (err) {
+        return res.send(err);
       }
-      res.json(all_comment);
+        res.json(comment);
+    });
+  })
+
+
+  .delete(function(req, res){
+    Comment.findOne({_id: req.params.id}, function(err, comment){
+      comment.remove(function(err){
+        if(err){
+          res.send(err);
+        }
+          res.json('Document Deleted')
+      });
     });
   });
 
-  router.route('/:comments_id')
-
-    .get(function(req, res){
-      Comment.findById(req.params.comments_id, function(err, single_comment){
-        if(err){
-          res.send(err);
-        }
-        res.json(single_comment);
-      });
-    })
-
-    .put(function(req, res){
-      Comment.findById(req.params.comments_id, function(err, single_comment){
-        single_comment.message = req.body.message;
-      single_comment.save(function(err){
-        if(err){
-          res.send(err);
-        }
-        res.json(single_comment);
-      });
-      });
-    })
-    
-    .delete(function(req, res){
-      Comment.findById(req.params.comments_id, function(err, single_comment){
-        single_comment.remove(function(err){
-          if(err){
-            res.send(err);
-          }
-          res.json('Comment Deleted')
-        });
-      });
-    });
-
-    module.exports = router;
+module.exports = router;

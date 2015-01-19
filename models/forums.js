@@ -14,11 +14,19 @@ var ForumSchema = new Schema({
   name: {
     type: String,
     default: '',
-    required: 'Please fill Forum name',
+    required: 'Please fill Club name',
     trim: true
   },
   slogan:{
     type: String,
+    default: '',
+    required: 'Please fill Club slogan',
+    trim: true
+  },
+  country:{
+    type: String,
+    default: '',
+    required: 'Please fill Club country',
     trim: true
   },
   created: {

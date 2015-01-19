@@ -8,7 +8,7 @@ router.use(bodyParser.json());
 var Forum = require('../models/forums');
 
 router.route('/forums')
-.get(function(req, res){
+  .get(function(req, res){
     Forum.find(function(err, forums){
       if(err){
         res.send(err);
@@ -18,7 +18,6 @@ router.route('/forums')
   })
 
   .post(function(req, res){
-    console.log(req.body);
     var forum = new Forum (req.body);
     forum.save(function(err){
       if(err){
@@ -28,16 +27,15 @@ router.route('/forums')
     });
   });
 
-  
-  router.route('/forums/:id')
-   .put(function(req, res){
-      Forum.findOne({_id: req.params.id}, function(err, forum){
-        if(err){
-          res.send(err);
-        }
-        for (prop in req.body) {
-        forum[prop] = req.body[prop];
-        }
+router.route('/forums/:id')
+  .put(function(req, res){
+    Forum.findOne({_id: req.params.id}, function(err, forum){
+      if(err){
+        res.send(err);
+      }
+      for (prop in req.body) {
+      forum[prop] = req.body[prop];
+      }
       forum.save(function(err) {
         if (err) {
           return res.send(err);
@@ -47,27 +45,25 @@ router.route('/forums')
     });
   })
 
-    .get(function(req, res){
-     Forum.findOne({ _id: req.params.id}, function(err, forum) {
-    if (err) {
-      return res.send(err);
-    }
- 
-    res.json(forum);
+  .get(function(req, res){
+    Forum.findOne({ _id: req.params.id}, function(err, forum) {
+      if (err) {
+        return res.send(err);
+      }
+
+      res.json(forum);
     });
   })
    
-
-    .delete(function(req, res){
-      console.log(req);
-      Forum.findOne({_id: req.params.id}, function(err, forum){
-        forum.remove(function(err){
-          if(err){
-            res.send(err);
-          }
-          res.json('Document Deleted')
-        });
+  .delete(function(req, res){
+    Forum.findOne({_id: req.params.id}, function(err, forum){
+      forum.remove(function(err){
+        if(err){
+          res.send(err);
+        }
+        res.json('Document Deleted')
       });
     });
+  });
 
-    module.exports = router;
+module.exports = router;

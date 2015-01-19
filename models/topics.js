@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-// mongoose.connect('mongodb://localhost/Football');
-
 
 var TopicSchema = new  Schema({
   headline: {
@@ -11,9 +9,13 @@ var TopicSchema = new  Schema({
   },
   body: {
     type: String,
+    required: 'Please enter Topic body',
     trim: true
-  }
-  forum: { type: Schema.Types.ObjectId, ref: 'Forum' }
+  },
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref:'Comment'
+  }]
 });
 
 module.exports = mongoose.model('Topic', TopicSchema);
